@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zhangshuo.zanno.Route;
 import com.zhangshuo.zapi.IRouteFilter;
 import com.zhangshuo.zapi.RouterManager;
 
+@Route("mainActivity")
 public class MainActivity extends AppCompatActivity {
 
     @Override

@@ -73,11 +73,12 @@ public class RouterManager {
 
 
     public void openForResult(Context context, final String path, int requestCode, Bundle bundle) {
+        if (TextUtils.isEmpty(path)) return;
         //判断拦截器是否需要拦截。
         boolean beforeHandler = (iRouteFilter != null && iRouteFilter.beforeHandler(path));
-        if (TextUtils.isEmpty(path) || beforeHandler) {
+        if (beforeHandler) {
             //销毁拦截器 防止在拦截器中添加路由事件，而当前方法并未执行结束，iRouterFilter被重新引用。
-            IRouteFilter tmpFilter=iRouteFilter;
+            IRouteFilter tmpFilter = iRouteFilter;
             iRouteFilter = null;
             tmpFilter.interception(path);
             return;

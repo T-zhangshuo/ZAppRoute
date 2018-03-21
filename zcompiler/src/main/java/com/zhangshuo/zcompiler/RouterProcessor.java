@@ -11,6 +11,8 @@ import com.squareup.javapoet.WildcardTypeName;
 import com.zhangshuo.zanno.Route;
 import com.zhangshuo.zcompiler.Bean.TargetInfo;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +28,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
+import javax.tools.JavaFileObject;
 
 
 @AutoService(Processor.class)
@@ -41,6 +44,7 @@ public class RouterProcessor extends AbstractProcessor {
         UtilManager.getMgr().getMessager().printMessage(Diagnostic.Kind.NOTE, "process");
         Set<? extends Element> elementSets = roundEnvironment.getElementsAnnotatedWith(Route.class);
         List<TargetInfo> targetInfoList = new ArrayList<>();
+
         for (Element element : elementSets) {
             //检查类型R
             if (!UtilManager.checkTypeValid(element)) continue;
@@ -53,9 +57,9 @@ public class RouterProcessor extends AbstractProcessor {
                 if ("".equals(v) || v.length() == 0) continue;
                 targetInfoList.add(new TargetInfo(typeElement, v));
             }
-            if (!targetInfoList.isEmpty()) {
-                generateCode(targetInfoList);
-            }
+        }
+        if (!targetInfoList.isEmpty()) {
+            generateCode(targetInfoList);
         }
         return false;
     }
@@ -98,6 +102,7 @@ public class RouterProcessor extends AbstractProcessor {
         }
 
     }
+
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
