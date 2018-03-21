@@ -36,4 +36,10 @@
         android:layout_height="wrap_content"
         android:onClick="gotoPath5"
         android:text="scheme协议跳转有结果" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:onClick="gotoPath6"
+        android:text="跳转拦截"
+        android:layout_height="wrap_content" />
 </LinearLayout>

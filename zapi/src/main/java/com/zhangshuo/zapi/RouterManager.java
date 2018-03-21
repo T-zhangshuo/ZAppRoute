@@ -65,13 +65,23 @@ public class RouterManager {
 
     public void openForResult(Context context, String path) {
         openForResult(context, path, REQUEST_CODE, null);
-
     }
 
-    public void openForResult(Context context, String path, int requestCode, Bundle bundle) {
+    public void openForResult(Context context, String path, Bundle bundle) {
+        openForResult(context, path, REQUEST_CODE, bundle);
+    }
+
+
+    public void openForResult(Context context, final String path, int requestCode, Bundle bundle) {
         //判断拦截器是否需要拦截。
         boolean beforeHandler = (iRouteFilter != null && iRouteFilter.beforeHandler(path));
-        if (TextUtils.isEmpty(path) || beforeHandler) return;
+        if (TextUtils.isEmpty(path) || beforeHandler) {
+            //销毁拦截器 防止在拦截器中添加路由事件，而当前方法并未执行结束，iRouterFilter被重新引用。
+            IRouteFilter tmpFilter=iRouteFilter;
+            iRouteFilter = null;
+            tmpFilter.interception(path);
+            return;
+        }
         boolean isActivity = context instanceof Activity;
         Intent intent = null;
         if (path.contains("://")) {
@@ -99,8 +109,11 @@ public class RouterManager {
             } else
                 ((Activity) context).startActivityForResult(intent, requestCode);
         }
-        if (iRouteFilter != null)
+        if (iRouteFilter != null) {
             iRouteFilter.afterHandler(path);
+            //销毁拦截器
+            iRouteFilter = null;
+        }
     }
 
     /*
@@ -127,7 +140,8 @@ public class RouterManager {
     * @editTime 2018/3/21 上午10:31
     * @Dec 业务拦截器
     */
-    public void setFilter(IRouteFilter iRouteFilter) {
+    public RouterManager setFilter(IRouteFilter iRouteFilter) {
         this.iRouteFilter = iRouteFilter;
+        return sManager;
     }
 }

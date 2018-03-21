@@ -17,6 +17,12 @@ public interface IRouteFilter {
 
     /*
     * @Author zhangshuo
+    * @editTime 2018/3/21 下午2:41
+    * @Dec beforeHandler返回为true时执行
+    */
+    void interception(String path);
+    /*
+    * @Author zhangshuo
     * @editTime 2018/3/21 上午10:30
     * @Dec 发生该跳转事件后
     */
