@@ -5,7 +5,7 @@ Android 路由。利用apt自动加入到路由表。
 - 支持scheme协议跳转。
 - 支持bundle传值。具体在示例APP中查看。
 - 支持多路径 指向同一个Activity
-
+- 支持跳转结果回调(onActivityForResult)
 
 ## 引入
 
