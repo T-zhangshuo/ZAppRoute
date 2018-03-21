@@ -22,8 +22,8 @@ allprojects {
 在module中到build.gradle 中添加依赖
 
 ```java
-api 'com.github.T-zhangshuo.ZAppRoute:zapi:1.0'
-annotationProcessor 'com.github.T-zhangshuo.ZAppRoute:zcompiler:1.0'
+api 'com.github.T-zhangshuo.ZAppRoute:zapi:1.1'
+annotationProcessor 'com.github.T-zhangshuo.ZAppRoute:zcompiler:1.1'
 ```
 
 在你到application中初始化路由表
