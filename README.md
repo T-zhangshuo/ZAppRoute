@@ -18,6 +18,15 @@ allprojects {
 		}
 	}
 ```
+在module中build.gradle中defaultconfig中添加
+```java
+javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+                arguments = [moduleName: project.getName()]
+            }
+        }
+```
 
 在module中到build.gradle 中添加依赖
 
@@ -26,9 +35,9 @@ api 'com.github.T-zhangshuo.ZAppRoute:zapi:1.1'
 annotationProcessor 'com.github.T-zhangshuo.ZAppRoute:zcompiler:1.1'
 ```
 
-在你到application中初始化路由表
+在你的主APP中的application中初始化路由表
 ```java
-RouterManager.getManager().init();
+RouterManager.getManager().init(context);
 ```
  
 在需要使用的Activity 中，添加注解
@@ -36,6 +45,7 @@ RouterManager.getManager().init();
 @Route({"second1", "second2"})
 public class SecondActivity extends Activity 
 ```
+
 
 使用
  ```java
