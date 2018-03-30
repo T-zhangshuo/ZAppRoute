@@ -6,7 +6,7 @@ Android 路由。利用apt自动加入到路由表。
 - 支持bundle传值。具体在示例APP中查看。
 - 支持多路径 指向同一个Activity
 - 支持跳转结果回调(onActivityForResult)
-
+- 增加拦截器
 ## 引入
 
 project中到build.gradle 中添加
@@ -22,8 +22,8 @@ allprojects {
 在module中到build.gradle 中添加依赖
 
 ```java
-api 'com.github.T-zhangshuo.ZAppRoute:zapi:1.0'
-annotationProcessor 'com.github.T-zhangshuo.ZAppRoute:zcompiler:1.0'
+api 'com.github.T-zhangshuo.ZAppRoute:zapi:1.1'
+annotationProcessor 'com.github.T-zhangshuo.ZAppRoute:zcompiler:1.1'
 ```
 
 在你到application中初始化路由表
