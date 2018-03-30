@@ -7,11 +7,13 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class RouterManager {
 
@@ -37,17 +39,27 @@ public class RouterManager {
         return sManager;
     }
 
-    public void init() {
+    public void init(Context context) {
         try {
-            String className = "com.zhangshuo.zapproute.AppRouter";
-            Class<?> moduleRouteTable = Class.forName(className);
-            Constructor constructor = moduleRouteTable.getConstructor();
-            IRoute instance = (IRoute) constructor.newInstance();
-            instance.initRouter(mTables);
+            //扫描包名为 com.zhangshuo.zapproute下的所有
+            List<String> routerList=PackageManager.getClassNameInPackage(context,"com.zhangshuo.zapproute");
+            for(int i=0;i<routerList.size();i++) {
+                String className = routerList.get(i);
+                Log.i("TAG","---"+className);
+                Class<?> moduleRouteTable = Class.forName(className);
+                Constructor constructor = moduleRouteTable.getConstructor();
+                IRoute instance = (IRoute) constructor.newInstance();
+                instance.initRouter(mTables);
+            }
+            //打印所有的路由地址
+            for(String key:mTables.keySet()){
+                Log.i("TAG","--key:"+key+"--value:"+mTables.get(key));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     /*
     * @Author zhangshuo

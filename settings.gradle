@@ -1,1 +1,1 @@
-include ':app', ':zanno', ':zcompiler', ':zapi'
+include ':app', ':zanno', ':zcompiler', ':zapi', ':basemodule'

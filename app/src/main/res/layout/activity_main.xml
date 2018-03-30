@@ -42,4 +42,11 @@
         android:onClick="gotoPath6"
         android:text="跳转拦截"
         android:layout_height="wrap_content" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:onClick="gotoPath7"
+        android:text="跳转模块"
+        android:layout_height="wrap_content" />
 </LinearLayout>

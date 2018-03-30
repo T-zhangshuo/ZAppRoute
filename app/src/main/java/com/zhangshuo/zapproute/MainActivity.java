@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
         }).open(this,"second2");
     }
 
+    public void gotoPath7(View view){
+        RouterManager.getManager().openForResult(this,"third1");
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -23,6 +23,7 @@ import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedOptions;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
@@ -32,16 +33,23 @@ import javax.tools.JavaFileObject;
 
 
 @AutoService(Processor.class)
+@SupportedOptions("moduleName")
 public class RouterProcessor extends AbstractProcessor {
+    private String moduleName = "";
+
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
         UtilManager.getMgr().init(processingEnv);
+        Map<String, String> options = processingEnvironment.getOptions();
+        moduleName = options.get("moduleName");
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
-        UtilManager.getMgr().getMessager().printMessage(Diagnostic.Kind.NOTE, "process");
+        UtilManager.getMgr().getMessager().printMessage(Diagnostic.Kind.NOTE, "appRoute process");
+
+        //类
         Set<? extends Element> elementSets = roundEnvironment.getElementsAnnotatedWith(Route.class);
         List<TargetInfo> targetInfoList = new ArrayList<>();
 
@@ -65,16 +73,16 @@ public class RouterProcessor extends AbstractProcessor {
     }
 
     private void generateCode(List<TargetInfo> targetInfoList) {
-        TypeElement activityType=UtilManager.getMgr()
+        TypeElement activityType = UtilManager.getMgr()
                 .getElementUtils().getTypeElement("android.app.Activity");
-        ParameterizedTypeName actParam=ParameterizedTypeName.get(ClassName.get(Class.class),
+        ParameterizedTypeName actParam = ParameterizedTypeName.get(ClassName.get(Class.class),
                 WildcardTypeName.subtypeOf(ClassName.get(activityType)));
-        ParameterizedTypeName mapParam=ParameterizedTypeName.get(ClassName.get(Map.class),
-                ClassName.get(String.class),actParam);
+        ParameterizedTypeName mapParam = ParameterizedTypeName.get(ClassName.get(Map.class),
+                ClassName.get(String.class), actParam);
 
-        ParameterSpec spec=ParameterSpec.builder(mapParam,"routers").build();
+        ParameterSpec spec = ParameterSpec.builder(mapParam, "routers").build();
 
-        MethodSpec.Builder builder=MethodSpec.methodBuilder("initRouter")
+        MethodSpec.Builder builder = MethodSpec.methodBuilder("initRouter")
                 .addAnnotation(Override.class)
                 .addModifiers(Modifier.PUBLIC)
                 .addParameter(spec);
@@ -87,7 +95,7 @@ public class RouterProcessor extends AbstractProcessor {
                 .getElementUtils()
                 .getTypeElement("com.zhangshuo.zapi.IRoute");
 
-        TypeSpec typeSpec = TypeSpec.classBuilder("AppRouter")
+        TypeSpec typeSpec = TypeSpec.classBuilder( "AppRouter"+moduleName)
                 .addSuperinterface(ClassName.get(interfaceType))
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(builder.build())
