@@ -42,18 +42,18 @@ public class RouterManager {
     public void init(Context context) {
         try {
             //扫描包名为 com.zhangshuo.zapproute下的所有
-            List<String> routerList=PackageManager.getClassNameInPackage(context,"com.zhangshuo.zapproute");
-            for(int i=0;i<routerList.size();i++) {
+            List<String> routerList = PackageManager.getClassNameInPackage(context, "com.zhangshuo.zapproute");
+            for (int i = 0; i < routerList.size(); i++) {
                 String className = routerList.get(i);
-                Log.i("TAG","---"+className);
+                Log.i("TAG", "---" + className);
                 Class<?> moduleRouteTable = Class.forName(className);
                 Constructor constructor = moduleRouteTable.getConstructor();
                 IRoute instance = (IRoute) constructor.newInstance();
                 instance.initRouter(mTables);
             }
             //打印所有的路由地址
-            for(String key:mTables.keySet()){
-                Log.i("TAG","--key:"+key+"--value:"+mTables.get(key));
+            for (String key : mTables.keySet()) {
+                Log.i("TAG", "--key:" + key + "--value:" + mTables.get(key));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,11 +62,11 @@ public class RouterManager {
 
 
     /*
-    * @Author zhangshuo
-    * @editTime 2018/3/21 上午9:48
-    * @Dec 打开访问的地址 path：普通地址（注解部分）或含scheme协议地址(清单文件定义的部分）
-    * openXXXX  为 startActivity 或者 startActivityForResult
-    */
+     * @Author zhangshuo
+     * @editTime 2018/3/21 上午9:48
+     * @Dec 打开访问的地址 path：普通地址（注解部分）或含scheme协议地址(清单文件定义的部分）
+     * openXXXX  为 startActivity 或者 startActivityForResult
+     */
     public void open(Context context, String path) {
         open(context, path, null);
     }
@@ -130,13 +130,14 @@ public class RouterManager {
     }
 
     /*
-    * @Author zhangshuo
-    * @editTime 2018/3/21 上午10:16
-    * @Dec 关闭当前界面，可以产生onActivityForResult
-    */
+     * @Author zhangshuo
+     * @editTime 2018/3/21 上午10:16
+     * @Dec 关闭当前界面，可以产生onActivityForResult
+     */
     public void setFinishResult(Activity activity, Bundle bundle) {
         Intent intent = new Intent();
-        intent.putExtras(bundle);
+        if (bundle != null)
+            intent.putExtras(bundle);
         activity.setResult(RESULT_CODE, intent);
         activity.finish();
     }
@@ -149,10 +150,10 @@ public class RouterManager {
     }
 
     /*
-    * @Author zhangshuo
-    * @editTime 2018/3/21 上午10:31
-    * @Dec 业务拦截器
-    */
+     * @Author zhangshuo
+     * @editTime 2018/3/21 上午10:31
+     * @Dec 业务拦截器
+     */
     public RouterManager setFilter(IRouteFilter iRouteFilter) {
         this.iRouteFilter = iRouteFilter;
         return sManager;

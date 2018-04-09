@@ -33,5 +33,13 @@
     <orderEntry type="library" exported="" scope="PROVIDED" name="auto-service-1.0-rc3" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="auto-common-0.3" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="guava-19.0" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="javapoet-1.10.0" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="auto-service-1.0-rc3" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="auto-common-0.3" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="guava-19.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="javapoet-1.10.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="auto-service-1.0-rc3" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="auto-common-0.3" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="guava-19.0" level="project" />
   </component>
 </module>
