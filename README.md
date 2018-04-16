@@ -31,8 +31,8 @@ javaCompileOptions {
 在module中到build.gradle 中添加依赖
 
 ```java
-api 'com.github.T-zhangshuo.ZAppRoute:zapi:1.1'
-annotationProcessor 'com.github.T-zhangshuo.ZAppRoute:zcompiler:1.1'
+api 'com.github.T-zhangshuo.ZAppRoute:zapi:1.1'//基础模块添加一次即可
+annotationProcessor 'com.github.T-zhangshuo.ZAppRoute:zcompiler:1.1'//需要注解的模块都要添加
 ```
 
 在你的主APP中的application中初始化路由表
