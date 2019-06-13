@@ -37,7 +37,7 @@ annotationProcessor 'com.github.T-zhangshuo.ZAppRoute:zcompiler:1.1'//需要注�
 
 在你的主APP中的application中初始化路由表
 ```java
-RouterManager.getManager().init(context);
+RouterManager.get().init(context);
 ```
  
 在需要使用的Activity 中，添加注解
@@ -50,6 +50,6 @@ public class SecondActivity extends Activity
 使用
  ```java
  //具体参数见提示
-  RouterManager.getManager().open(Object... param);
+  RouterManager.get().open(Object... param);
   RouterManager.getmanager().openForResult(Object...param);
  ```

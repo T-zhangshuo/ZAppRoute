@@ -13,6 +13,6 @@ public class MApplication  extends Application{
     public void onCreate() {
         super.onCreate();
         //初始化路由
-        RouterManager.getManager().init(this);
+        RouterManager.get().init(this);
     }
 }

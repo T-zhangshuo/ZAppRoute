@@ -28,7 +28,7 @@ public class RouterManager {
         mTables = new HashMap<>();
     }
 
-    public static RouterManager getManager() {
+    public static RouterManager get() {
         if (sManager == null) {
             synchronized (RouterManager.class) {
                 if (sManager == null) {
@@ -45,7 +45,6 @@ public class RouterManager {
             List<String> routerList = PackageManager.getClassNameInPackage(context, "com.zhangshuo.zapproute");
             for (int i = 0; i < routerList.size(); i++) {
                 String className = routerList.get(i);
-                Log.i("TAG", "---" + className);
                 Class<?> moduleRouteTable = Class.forName(className);
                 Constructor constructor = moduleRouteTable.getConstructor();
                 IRoute instance = (IRoute) constructor.newInstance();

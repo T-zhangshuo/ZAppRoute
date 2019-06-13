@@ -16,7 +16,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath = true
-                arguments = [moduleName: project.getName()]
+                arguments = [ZROUTER_MODULE_NAME: project.getName()]
             }
         }
 

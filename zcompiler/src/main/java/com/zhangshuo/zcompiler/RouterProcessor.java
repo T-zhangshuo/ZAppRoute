@@ -42,13 +42,12 @@ public class RouterProcessor extends AbstractProcessor {
         super.init(processingEnvironment);
         UtilManager.getMgr().init(processingEnv);
         Map<String, String> options = processingEnvironment.getOptions();
-        moduleName = options.get("moduleName");
+        moduleName = options.get("ZROUTER_MODULE_NAME");
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
-        UtilManager.getMgr().getMessager().printMessage(Diagnostic.Kind.NOTE, "appRoute process");
-
+        UtilManager.getMgr().getMessager().printMessage(Diagnostic.Kind.NOTE, "appRoute process>>"+moduleName);
         //类
         Set<? extends Element> elementSets = roundEnvironment.getElementsAnnotatedWith(Route.class);
         List<TargetInfo> targetInfoList = new ArrayList<>();

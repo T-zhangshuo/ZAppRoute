@@ -19,7 +19,7 @@ public class ThirdActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
-        Bundle extras = RouterManager.getManager().getBundle(this);
+        Bundle extras = RouterManager.get().getBundle(this);
         String tip = extras.getString("TIP");
         Toast.makeText(this, "第一个页面：" + tip, Toast.LENGTH_SHORT).show();
     }
@@ -27,6 +27,6 @@ public class ThirdActivity extends Activity {
     public void finish(View view) {
         Bundle bundle = new Bundle();
         bundle.putString("TIP", "第二个页面回传值");
-        RouterManager.getManager().setFinishResult(this, bundle);
+        RouterManager.get().setFinishResult(this, bundle);
     }
 }
